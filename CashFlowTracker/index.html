@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cash-Flow — Salary & Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <!-- Tabler Icons -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@2.44.0/tabler-icons.min.css" />
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+  <!-- jsPDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Alert Banner -->
+  <div id="alertBanner" class="alert-banner" role="alert" aria-live="polite">
+    <i class="ti ti-alert-triangle"></i>
+    <span>Warning: your remaining balance has dropped below 10% of your salary.</span>
+  </div>
+
+  <div class="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1>Cash-Flow</h1>
+        <p>Track your salary, log expenses, and watch your balance in real time.</p>
+      </div>
+      <div class="header-right">
+        <select id="currSelect" aria-label="Select currency">
+          <option value="INR">INR ₹</option>
+          <option value="USD">USD $</option>
+          <option value="EUR">EUR €</option>
+          <option value="GBP">GBP £</option>
+        </select>
+        <span id="rateNote" class="rate-note"></span>
+      </div>
+    </header>
+
+    <!-- KPI Row -->
+    <section class="kpi-row" aria-label="Financial summary">
+      <div class="kpi">
+        <div class="kpi-label">Total salary</div>
+        <div class="kpi-value" id="kpiSalary">₹0</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Total expenses</div>
+        <div class="kpi-value" id="kpiExpenses">₹0</div>
+      </div>
+      <div class="kpi">
+        <div class="kpi-label">Remaining balance</div>
+        <div class="kpi-value" id="kpiBalance">₹0</div>
+      </div>
+    </section>
+
+    <!-- Error Banner -->
+    <div id="errorBanner" class="error-banner" role="alert" aria-live="assertive">
+      <i class="ti ti-alert-circle"></i>
+      <span id="errorMsg"></span>
+    </div>
+
+    <!-- Forms Row -->
+    <div class="forms-row">
+
+      <!-- Salary Form -->
+      <section class="card" aria-labelledby="salaryTitle">
+        <h2 class="card-title" id="salaryTitle">Set salary</h2>
+        <div class="form-group">
+          <label for="salaryInput">Monthly salary</label>
+          <input type="number" id="salaryInput" placeholder="e.g. 80000" min="0" />
+        </div>
+        <button class="btn btn-primary" id="salaryBtn">
+          <i class="ti ti-device-floppy"></i> Save salary
+        </button>
+      </section>
+
+      <!-- Expense Form -->
+      <section class="card" aria-labelledby="expenseTitle">
+        <h2 class="card-title" id="expenseTitle">Add expense</h2>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="expNameInput">Expense name</label>
+            <input type="text" id="expNameInput" placeholder="e.g. Rent" />
+          </div>
+          <div class="form-group">
+            <label for="expAmtInput">Amount</label>
+            <input type="number" id="expAmtInput" placeholder="e.g. 15000" min="0" />
+          </div>
+        </div>
+        <button class="btn btn-primary" id="addExpenseBtn">
+          <i class="ti ti-plus"></i> Add expense
+        </button>
+      </section>
+
+    </div>
+
+    <!-- Data Row -->
+    <div class="data-row">
+
+      <!-- Expense List -->
+      <section class="card" aria-labelledby="listTitle">
+        <h2 class="card-title" id="listTitle">
+          Expenses <span class="expense-count" id="expenseCount"></span>
+        </h2>
+        <div class="expense-list" id="expenseList" role="list">
+          <div class="empty-state">
+            <i class="ti ti-receipt-off"></i>
+            <p>No expenses yet. Add one above.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Chart -->
+      <section class="card" aria-labelledby="chartTitle">
+        <h2 class="card-title" id="chartTitle">Balance breakdown</h2>
+        <div class="legend" id="chartLegend"></div>
+        <div class="chart-wrap">
+          <canvas id="pieChart" role="img" aria-label="Pie chart showing remaining balance vs total expenses">
+            Remaining balance vs total expenses.
+          </canvas>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- Action Row -->
+    <div class="action-row">
+      <button class="btn" id="downloadBtn">
+        <i class="ti ti-download"></i> Download PDF report
+      </button>
+      <button class="btn btn-danger" id="clearBtn">
+        <i class="ti ti-trash"></i> Clear all data
+      </button>
+    </div>
+
+  </div><!-- .app -->
+
+  <script src="state.js"></script>
+  <script src="chart.js"></script>
+  <script src="pdf.js"></script>
+  <script src="currency.js"></script>
+  <script src="ui.js"></script>
+  <script src="app.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,473 @@
+/* ============================================================
+   Cash-Flow — style.css
+   Design: clean flat UI, INR-first finance tracker
+   ============================================================ */
+
+/* ── Reset & Base ─────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --color-bg:        #f5f4f0;
+  --color-surface:   #ffffff;
+  --color-surface-2: #f9f8f5;
+  --color-border:    rgba(0, 0, 0, 0.09);
+  --color-border-strong: rgba(0, 0, 0, 0.16);
+  --color-text:      #0b0b0b;
+  --color-text-2:    #52514e;
+  --color-text-muted:#898781;
+  --color-accent:    #2a78d6;
+  --color-accent-bg: #e6f1fb;
+  --color-danger:    #d03b3b;
+  --color-danger-bg: #fcebeb;
+  --color-danger-border: #f7c1c1;
+  --color-warning-bg:#fff8e1;
+  --color-warning-border: #ffe082;
+  --color-warning-text: #7a5200;
+  --color-chart-blue: #2a78d6;
+  --color-chart-red:  #e34948;
+  --radius:          8px;
+  --radius-card:     12px;
+  --shadow-card:     0 1px 3px rgba(0,0,0,0.07), 0 0 0 0.5px rgba(0,0,0,0.07);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-size: 15px;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* ── App Shell ────────────────────────────────────────────── */
+.app {
+  max-width: 860px;
+  margin: 0 auto;
+  padding: 2rem 1.25rem 3rem;
+}
+
+/* ── Alert Banner (threshold warning) ────────────────────── */
+.alert-banner {
+  display: none;
+  align-items: center;
+  gap: 10px;
+  background: var(--color-warning-bg);
+  border-bottom: 1px solid var(--color-warning-border);
+  color: var(--color-warning-text);
+  font-size: 14px;
+  font-weight: 500;
+  padding: 12px 1.25rem;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.alert-banner.show {
+  display: flex;
+}
+
+.alert-banner .ti {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* ── Header ───────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  color: var(--color-text);
+}
+
+.header p {
+  font-size: 14px;
+  color: var(--color-text-muted);
+  margin-top: 3px;
+}
+
+.header-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.rate-note {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+/* ── KPI Row ──────────────────────────────────────────────── */
+.kpi-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 1.5rem;
+}
+
+.kpi {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 1.1rem 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.kpi-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+
+.kpi-value {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--color-text);
+  letter-spacing: -0.5px;
+  transition: color 0.2s;
+}
+
+.kpi-value.danger {
+  color: var(--color-danger);
+}
+
+/* ── Error Banner ─────────────────────────────────────────── */
+.error-banner {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  background: var(--color-danger-bg);
+  border: 0.5px solid var(--color-danger-border);
+  border-radius: var(--radius);
+  padding: 9px 14px;
+  font-size: 13px;
+  color: var(--color-danger);
+  margin-bottom: 1rem;
+}
+
+.error-banner.show {
+  display: flex;
+}
+
+/* ── Card ─────────────────────────────────────────────────── */
+.card {
+  background: var(--color-surface);
+  border-radius: var(--radius-card);
+  padding: 1.25rem;
+  box-shadow: var(--shadow-card);
+}
+
+.card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-2);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+}
+
+/* ── Forms Row ────────────────────────────────────────────── */
+.forms-row {
+  display: grid;
+  grid-template-columns: 1fr 1.6fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin-bottom: 12px;
+}
+
+.form-group:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-2);
+}
+
+input[type="text"],
+input[type="number"],
+select {
+  height: 38px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--color-border-strong);
+  background: var(--color-surface-2);
+  color: var(--color-text);
+  padding: 0 11px;
+  font-size: 14px;
+  font-family: inherit;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.15s, box-shadow 0.15s;
+  appearance: none;
+  -webkit-appearance: none;
+}
+
+input:focus,
+select:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px var(--color-accent-bg);
+}
+
+input::placeholder {
+  color: var(--color-text-muted);
+}
+
+select {
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23898781' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 28px;
+}
+
+/* ── Buttons ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 38px;
+  border-radius: var(--radius);
+  border: 0.5px solid var(--color-border-strong);
+  background: transparent;
+  color: var(--color-text);
+  font-size: 13px;
+  font-family: inherit;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 0 16px;
+  transition: background 0.12s, transform 0.1s, border-color 0.12s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: var(--color-surface-2);
+}
+
+.btn:active {
+  transform: scale(0.98);
+}
+
+.btn .ti {
+  font-size: 15px;
+}
+
+.btn-primary {
+  background: var(--color-accent);
+  border-color: transparent;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background: #1e6ac0;
+}
+
+.btn-danger {
+  color: var(--color-danger);
+  border-color: var(--color-danger-border);
+}
+
+.btn-danger:hover {
+  background: var(--color-danger-bg);
+}
+
+/* ── Data Row ─────────────────────────────────────────────── */
+.data-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* ── Expense List ─────────────────────────────────────────── */
+.expense-count {
+  font-weight: 400;
+  color: var(--color-text-muted);
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: 12px;
+}
+
+.expense-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-strong) transparent;
+}
+
+.expense-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  background: var(--color-surface-2);
+  border-radius: var(--radius);
+  border: 0.5px solid var(--color-border);
+  transition: border-color 0.12s;
+}
+
+.expense-item:hover {
+  border-color: var(--color-border-strong);
+}
+
+.expense-name {
+  flex: 1;
+  font-size: 14px;
+  color: var(--color-text);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.expense-amount {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--color-text);
+  flex-shrink: 0;
+}
+
+.expense-delete {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: var(--radius);
+  border: 0.5px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  color: var(--color-text-muted);
+  font-size: 16px;
+  transition: color 0.12s, background 0.12s, border-color 0.12s;
+  font-family: inherit;
+}
+
+.expense-delete:hover {
+  color: var(--color-danger);
+  background: var(--color-danger-bg);
+  border-color: var(--color-danger-border);
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 2rem 1rem;
+  color: var(--color-text-muted);
+  font-size: 13px;
+  text-align: center;
+}
+
+.empty-state .ti {
+  font-size: 28px;
+  opacity: 0.4;
+}
+
+/* ── Chart ────────────────────────────────────────────────── */
+.legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: var(--color-text-2);
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.legend-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.chart-wrap {
+  position: relative;
+  height: 220px;
+}
+
+/* ── Action Row ───────────────────────────────────────────── */
+.action-row {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive ───────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .kpi-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .forms-row,
+  .data-row {
+    grid-template-columns: 1fr;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+
+  .header {
+    flex-direction: column;
+  }
+
+  .header-right {
+    align-items: flex-start;
+  }
+
+  .kpi-value {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 380px) {
+  .app {
+    padding: 1rem 0.75rem 2rem;
+  }
+
+  .card {
+    padding: 1rem;
+  }
+}
