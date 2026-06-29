@@ -95,7 +95,7 @@ Click **Clear All Data** to remove all stored salary and expense records.
 
 ##  Live Demo
 
-https://your-project.vercel.app/
+https://salary-expense-tracker-ochre.vercel.app/
 
 ## 🔮 Future Enhancements
 
